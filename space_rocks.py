@@ -27,12 +27,14 @@ class Rock:
 
         # Rock is based on a polygon (straight edged circle).
         if self.size == 'Large':
-            self.radius = random.randint(30, 50)
+            # self.radius = random.randint(30, 50)
+            self.radius = random.randint(20, 35)
         elif self.size == "Medium":
-            self.radius = random.randint(15, 25)
+            # self.radius = random.randint(15, 25)
+            self.radius = random.randint(10, 20)
         else:
-            self.radius = random.randint(10, 15)
-
+            # self.radius = random.randint(10, 15)
+            self.radius = random.randint(7, 10)
         self.rotation = 0                                   # Current rotation of the rock in degrees.
 
         max_rotation_velocity = round(100 / config.target_fps)
@@ -45,11 +47,14 @@ class Rock:
 
         for v_num in range(vertex_count):
             if self.size == "Large":
-                vertex = [0, self.radius + random.randint(-15, 15)]
+                # vertex = [0, self.radius + random.randint(-15, 15)]
+                vertex = [0, self.radius + random.randint(-10, 10)]
             elif self.size == "Medium":
-                vertex = [0, self.radius + random.randint(-7, 7)]
+                # vertex = [0, self.radius + random.randint(-7, 7)]
+                vertex = [0, self.radius + random.randint(-4, 4)]
             else:
-                vertex = [0, self.radius + random.randint(-5, 5)]
+                # vertex = [0, self.radius + random.randint(-5, 5)]
+                vertex = [0, self.radius + random.randint(-3, 3)]
 
             vertex = cc.rotate_around_origin(vertex, slice_size * v_num)
             self.vertices.append(vertex)
@@ -75,28 +80,32 @@ class Rock:
 
             if self.coords[0] <= config.screen_size[0] / 2:    # Left hand side of top of screen.
                 self.drift = [10 * random.randint(1, 3) / config.target_fps,
-                              10 * random.randint(2, 4) / config.target_fps]   # So drift rightwards and downwards.
+                              10 * random.randint(1, 3) / config.target_fps]   # So drift rightwards and downwards.
             else:
                 self.drift = [10 * random.randint(-3, -1) / config.target_fps,
-                              10 * random.randint(2, 4) / config.target_fps]     # Otherwise drift leftwards and downwards.
+                              10 * random.randint(1, 3) / config.target_fps]     # Otherwise drift leftwards and downwards.
 
         if start_side == 2:                                 # Bottom
             self.coords = [random.randint(config.border, config.screen_size[0] - config.border), config.bottom_dead]
 
             if self.coords[0] <= config.screen_size[0] / 2:    # Left hand side of top of screen.
                 self.drift = [10 * random.randint(1, 3) / config.target_fps,
-                              10 * random.randint(-4, -2) / config.target_fps]   # So drift rightwards and upwards.
+                              10 * random.randint(-3, -1) / config.target_fps]   # So drift rightwards and upwards.
             else:
-                self.drift = [random.randint(-3, -1), random.randint(-4, -2)]     # Otherwise drift leftwards and upwards.
+                self.drift = [10 * random.randint(-3, -1) / config.target_fps,
+                              10 * random.randint(-3, -2) / config.target_fps]     # Otherwise drift leftwards and upwards.
 
         if start_side == 3:
-            self.coords = [-100, random.randint(200, 400)]
-            self.drift = [10 * random.randint(2, 4) / config.target_fps,
+            # self.coords = [-100, random.randint(200, 400)]
+            self.coords = [-75, random.randint(75, 150)]
+
+            self.drift = [10 * random.randint(2, 3) / config.target_fps,
                           10 * random.randint(-3, 3) / config.target_fps]
 
         if start_side == 4:
-            self.coords = [900, random.randint(200, 400)]
-            self.drift = [10 * random.randint(-4, -2) / config.target_fps,
+            # self.coords = [900, random.randint(200, 400)]
+            self.coords = [400, random.randint(75, 150)]
+            self.drift = [10 * random.randint(-3, -2) / config.target_fps,
                           10 * random.randint(-3, 3) / config.target_fps]
 
     # Has the rock strayed outside of the game screen? If so, it is flagged to be killed off.
@@ -114,10 +123,14 @@ class Rock:
 
         # Before doing the triangle analysis (which is time consuming), do a simpler clipping test.
         # Imagine a square around the centre of the rock. Is the vertex inside that square?
-        if (vertex[0] > self.coords[0] - self.radius - 15       # 15 is the most that can randomly be added to a vertex
-        and vertex[0] < self.coords[0] + self.radius + 15       # at the time that the rock was created.
-        and vertex[1] > self.coords[1] - self.radius - 15
-        and vertex[1] < self.coords[1] + self.radius + 15):
+        # if (vertex[0] > self.coords[0] - self.radius - 15       # 15 is the most that can randomly be added to a vertex
+        # and vertex[0] < self.coords[0] + self.radius + 15       # at the time that the rock was created.
+        # and vertex[1] > self.coords[1] - self.radius - 15
+        # and vertex[1] < self.coords[1] + self.radius + 15):
+        if (vertex[0] > self.coords[0] - self.radius - 10  # 10 is the most that can randomly be added to a vertex
+        and vertex[0] < self.coords[0] + self.radius + 10  # at the time that the rock was created.
+        and vertex[1] > self.coords[1] - self.radius - 10
+        and vertex[1] < self.coords[1] + self.radius + 10):
 
             # If the vertex is inside the square, then it is worth checking each triangle that makes up the
             # rock in turn, to see if the vertex is inside any of them.
@@ -220,7 +233,8 @@ class Bullet:
         self.angle = angle                                          # Angle that the bullet is moving in.
         self.colour = colour                                        # Colour of bullet. Will be same as player's ship.
 
-        self.drift = cc.rotate_around_origin([0, 20], self.angle)   # Incremental drift this bullet will do each tick.
+        # self.drift = cc.rotate_around_origin([0, 20], self.angle)   # Incremental drift this bullet will do each tick.
+        self.drift = cc.rotate_around_origin([0, 7], self.angle)   # Incremental drift this bullet will do each tick.
         self.kill = False                                           # Flags is this bullet is to be deleted.
 
     # Draw the bullet as a little circle on the game screen.
@@ -278,12 +292,14 @@ class SpaceShip:
     # Rotate the ship clockwise by 10 degrees.
     def rotate_clockwise(self):
         if not self.exploding:              # Exploding ships can't rotate!
-            self.rotation -= 10             # In Pygame, increased y coord is down, hence this rotation is -ve.
+            # self.rotation -= 10             # In Pygame, increased y coord is down, hence this rotation is -ve.
+            self.rotation -= 5             # In Pygame, increased y coord is down, hence this rotation is -ve.
 
     # Rotate the ship anticlockwise by 10 degrees.
     def rotate_anticlockwise(self):
         if not self.exploding:              # Exploding ships can't rotate!
-            self.rotation += 10            # In Pygame, increased y coord is down, hence this rotation is +ve.
+            # self.rotation += 10            # In Pygame, increased y coord is down, hence this rotation is +ve.
+            self.rotation += 5  # In Pygame, increased y coord is down, hence this rotation is +ve.
 
     # If ship is not currently exploding, then fire a bullet from its nose.
     def fire_bullet(self, config):
@@ -387,7 +403,9 @@ class Game:
         self.config = config
 
         # Create some rocks for start of game.
-        self.num_rocks = 20                             # Target number of rocks to have on screen at once.
+        # self.num_rocks = 20                             # Target number of rocks to have on screen at once.
+        self.num_rocks = 15                             # Target number of rocks to have on screen at once.
+
         self.rocks = []
         for r in range(self.num_rocks):
             new_rock = Rock(self.config, 'Large')
@@ -450,7 +468,7 @@ class Game:
     # Draw the frames per second at the bottom left of the screen.
     def draw_fps(self):
         self.draw_text('FPS = ' + str(round(self.config.clock.get_fps())),
-                       10, self.config.screen_size[1] - 45, self.config.WHITE)
+                       210, self.config.screen_size[1] - 30, self.config.WHITE)
 
     def draw_game_info(self):
         # Always draw first player's score, as there is always at least 1 player.
@@ -459,35 +477,38 @@ class Game:
             c2 = self.config.WHITE
         else:
             c1 = self.players[0].colour
-            if self.config.num_players ==2:
+            if self.config.num_players == 2:
                 c2 = self.players[1].colour
 
-        self.draw_text(self.players[0].player_name + ': ' + str(self.players[0].score), 10, 10, c1)
+        self.draw_text(self.players[0].player_name + ': ' + str(self.players[0].score), 10, 10, self.config.WHITE)
 
-        if self.config.num_players == 2:
-            self.draw_text(self.players[1].player_name + ': ' + str(self.players[1].score),
-                                  self.config.screen_size[0] - 200,
-                                  10,
-                                  c2)
+        # if self.config.num_players == 2:
+        #     self.draw_text(self.players[1].player_name + ': ' + str(self.players[1].score),
+        #                           self.config.screen_size[0] - 200,
+        #                           10,
+        #                           c2)
 
         if not self.config.demo_mode:
-            self.draw_centred_white_text('Time: ' + str(round(self.game_end_time - time.time())), 'Centre', 10)
+            self.draw_text('Time: ' + str(round(self.game_end_time - time.time())),
+                           10,
+                           self.config.screen_size[1] - 30,
+                           self.config.WHITE)
 
     # Draw instruction on screen during demo mode.
     def draw_demo_info(self):
-        self.draw_centred_white_text('GAME OVER', 'Centre', self.config.screen_centre[1] - 150)
-        self.draw_centred_white_text('Press 1 for 1 player game', 'Centre', self.config.screen_centre[1] - 100)
-        self.draw_centred_white_text('Press 2 for 2 player game', 'Centre', self.config.screen_centre[1] - 75)
+        self.draw_centred_white_text('GAME OVER', 'Centre', self.config.screen_centre[1] - 60)
+        # self.draw_centred_white_text('Press 1 for 1 player game', 'Centre', self.config.screen_centre[1] - 100)
+        # self.draw_centred_white_text('Press 2 for 2 player game', 'Centre', self.config.screen_centre[1] - 75)
 
-        self.draw_centred_white_text('Player 1', 'Left', self.config.screen_centre[1] + 50)
-        self.draw_centred_white_text('Z = Rotate anticlockwise', 'Left', self.config.screen_centre[1] + 75)
-        self.draw_centred_white_text('X = Rotate clockwise', 'Left', self.config.screen_centre[1] + 100)
-        self.draw_centred_white_text('A = Fire gun', 'Left', self.config.screen_centre[1] + 125)
+        # self.draw_centred_white_text('Player 1', 'Left', self.config.screen_centre[1])
+        # self.draw_centred_white_text('Z = Rotate anticlockwise', 'Left', self.config.screen_centre[1] + 25)
+        # self.draw_centred_white_text('X = Rotate clockwise', 'Left', self.config.screen_centre[1] + 50)
+        # self.draw_centred_white_text('A = Fire gun', 'Left', self.config.screen_centre[1] + 75)
 
-        self.draw_centred_white_text('Player 2', 'Right', self.config.screen_centre[1] + 50)
-        self.draw_centred_white_text('← = Rotate anticlockwise', 'Right', self.config.screen_centre[1] + 75)
-        self.draw_centred_white_text('→ = Rotate clockwise', 'Right', self.config.screen_centre[1] + 100)
-        self.draw_centred_white_text('/ = Fire gun', 'Right', self.config.screen_centre[1] + 125)
+        # self.draw_centred_white_text('Player 2', 'Right', self.config.screen_centre[1] + 50)
+        # self.draw_centred_white_text('← = Rotate anticlockwise', 'Right', self.config.screen_centre[1] + 75)
+        # self.draw_centred_white_text('→ = Rotate clockwise', 'Right', self.config.screen_centre[1] + 100)
+        # self.draw_centred_white_text('/ = Fire gun', 'Right', self.config.screen_centre[1] + 125)
 
     # This one method does the drawing of all of the graphical elements in the game.
     def draw_all_elements(self):
@@ -672,7 +693,7 @@ class Config:
         self.GREEN = [0, 255, 0]
 
         # Set the height and width of the viewport.
-        self.screen_size = [800, 600]
+        self.screen_size = [320, 240]
         self.screen_centre = [int(self.screen_size[0] / 2), int(self.screen_size[1] / 2)]
         self.screen = pygame.display.set_mode(self.screen_size)
 
@@ -699,7 +720,9 @@ class Config:
         # Border greater than width of largest possible rock. This ensures that when a rock is removed for being
         # outside of the screen plus border, we can be sure that all of the rock is off screen. If the border wasn't
         # wide enough rocks that are drifting off screen could be removed while part of them is still onscreen.
-        self.border = 100
+        # self.border = 100
+        self.border = 50
+
 
         # These are the edges of the zone where graphical objects are born and die.
         self.left_dead = - self.border

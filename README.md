@@ -1,7 +1,7 @@
 # Space Rocks GamePi20
 A port of Space Rocks for GamePi20.
 
-The screen resolution is 320x240 pixels.
+The screen resolution is 320x240 pixels. FPS is 60.
 
 #### Installation
 To install the necessary game module,
