@@ -3,12 +3,12 @@ A port of Space Rocks for GamePi20.
 
 Changes compared to original version,
 * Screen resolution reduced to 320x240 pixels.
-* Refresh rate adjusted to 60 FPS.
 * Number & size of "rocks" reduced for smaller screen.
 * Font size for "Score", etc. reduced for smaller screen.
-
-TODO
-* Reduce frame rate 
+* Game made monochrome (not just demo mode).
+* Single player only.
+* Max number of bullets on screen at once reduced.
+* Explosion animations reduced in complexity.
 
 #### Installation
 ```

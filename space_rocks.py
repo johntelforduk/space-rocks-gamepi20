@@ -160,8 +160,8 @@ class Rock:
         else:
             self.kill = True                                # Explosion animation is over, so kill off the rock.
 
-        # Half way through the explosion animation, maybe spawn new rocks.
-        if self.explosion_step == int(0.5 * game.config.target_fps):
+        # Part way through the explosion animation, maybe spawn new rocks.
+        if self.explosion_step == int(0.2 * game.config.target_fps):
             if self.size in ['Large', 'Medium']:
                 for i in range(2):                          # range(2), because 2 child rocks will be created.
                     if self.size == 'Large':
@@ -296,13 +296,13 @@ class SpaceShip:
     def rotate_clockwise(self):
         if not self.exploding:              # Exploding ships can't rotate!
             # self.rotation -= 10             # In Pygame, increased y coord is down, hence this rotation is -ve.
-            self.rotation -= 5             # In Pygame, increased y coord is down, hence this rotation is -ve.
+            self.rotation -= 10             # In Pygame, increased y coord is down, hence this rotation is -ve.
 
     # Rotate the ship anticlockwise by 10 degrees.
     def rotate_anticlockwise(self):
         if not self.exploding:              # Exploding ships can't rotate!
             # self.rotation += 10            # In Pygame, increased y coord is down, hence this rotation is +ve.
-            self.rotation += 5  # In Pygame, increased y coord is down, hence this rotation is +ve.
+            self.rotation += 10  # In Pygame, increased y coord is down, hence this rotation is +ve.
 
     # If ship is not currently exploding, then fire a bullet from its nose.
     def fire_bullet(self, config):
@@ -413,7 +413,7 @@ class Game:
         self.num_rocks = 15                             # Target number of rocks to have on screen at once.
 
         self.rocks = []
-        for r in range(self.num_rocks):
+        for r in range(int(self.num_rocks / 2)):
             new_rock = Rock(self.config, 'Large')
             new_rock.place_on_side_of_screen(self.config)
             self.rocks.append(new_rock)
