@@ -279,7 +279,8 @@ class SpaceShip:
         # The vertex is the nose of the ship, where bullets are fired from.
         self.vertices = [[0, 10], [-5, -5], [0, 0], [5, -5]]
 
-        explosion_vertex_count = 72                                    # Number of vertices that will make up explosion.
+        # explosion_vertex_count = 72                                    # Number of vertices that will make up explosion.
+        explosion_vertex_count = 20                                    # Number of vertices that will make up explosion.
         slice_size = 360 / explosion_vertex_count                     # Good for this to be an integer.
         self.explosion_vertices = []
 
