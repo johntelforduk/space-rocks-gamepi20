@@ -480,7 +480,9 @@ class Game:
             if self.config.num_players == 2:
                 c2 = self.players[1].colour
 
-        self.draw_text(self.players[0].player_name + ': ' + str(self.players[0].score), 10, 10, self.config.WHITE)
+        # self.draw_text(self.players[0].player_name + ': ' + str(self.players[0].score), 10, 10, self.config.WHITE)
+        self.draw_text('Score: ' + str(self.players[0].score), 10, 10, self.config.WHITE)
+
 
         # if self.config.num_players == 2:
         #     self.draw_text(self.players[1].player_name + ': ' + str(self.players[1].score),
@@ -695,7 +697,9 @@ class Config:
         # Set the height and width of the viewport.
         self.screen_size = [320, 240]
         self.screen_centre = [int(self.screen_size[0] / 2), int(self.screen_size[1] / 2)]
-        self.screen = pygame.display.set_mode(self.screen_size)
+        self.screen = pygame.display.set_mode(self.screen_size, pygame.FULLSCREEN)
+
+        pygame.mouse.set_visible(False)             # Turn off the mouse pointer.
 
         self.clock = pygame.time.Clock()
 
@@ -758,6 +762,9 @@ class Config:
 
             if keys[pygame.K_g]:
                 this_game.take_screenshot()
+
+            if keys[pygame.K_q]:                # 'q' quits the program.
+                self.quit = True
 
             if not self.quit:
                 this_game.animate_1_tick()
