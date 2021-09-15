@@ -7,7 +7,16 @@ Changes compared to original version,
 * Number & size of "rocks" reduced for smaller screen.
 * Font size for "Score", etc. reduced for smaller screen.
 
+TODO
+* Reduce frame rate 
+
 #### Installation
+```
+sudo apt-get install libsdl-ttf2.0-0
+sudo apt-get install libsdl-mixer1.2
+```
+
+
 To install the necessary game module,
 
 `pip install pygame`

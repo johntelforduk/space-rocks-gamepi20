@@ -153,7 +153,9 @@ class Rock:
 
     # Continue animation of rock's explosion.
     def animate_explosion(self, game):
-        if self.explosion_step < game.config.target_fps:           # Higher FPS mean, more animation steps for explosion!
+        # if self.explosion_step < game.config.target_fps:           # Higher FPS mean, more animation steps for explosion!
+        if self.explosion_step < int(game.config.target_fps / 4):  # Higher FPS mean, more animation steps for explosion!
+
             self.explosion_step += 1
         else:
             self.kill = True                                # Explosion animation is over, so kill off the rock.
@@ -303,7 +305,10 @@ class SpaceShip:
 
     # If ship is not currently exploding, then fire a bullet from its nose.
     def fire_bullet(self, config):
-        if len(self.bullets) < 10 and not self.exploding:
+        # if len(self.bullets) < 10 and not self.exploding:
+        # To help frame rate, reduce max number of bullets.
+        if len(self.bullets) < 5 and not self.exploding:
+
             # Bullets should originate from the ships nose.
             # Vertex 0 of the ship is it's nose.
             ship_nose = self.position(self.vertices[0])
@@ -533,8 +538,8 @@ class Game:
             self.draw_demo_info()
 
         # If in debug mode, draw the frames per second onscreen.
-        if self.config.debug:
-            self.draw_fps()
+#        if self.config.debug:
+        self.draw_fps()
 
         pygame.display.flip()
 
@@ -649,7 +654,7 @@ class Game:
     def play(self):
         done = False
         self.config.demo_mode = False           # This is not a demo, this is the real game.
-        self.config.monochrome = False          # Actual games are in colour.
+#        self.config.monochrome = False          # Actual games are in colour.
 
         # Loop until the user clicks the close button, or game time is up.
         while not done:
