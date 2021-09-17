@@ -15,7 +15,10 @@ Changes compared to original version,
 sudo apt-get install libsdl-ttf2.0-0
 sudo apt-get install libsdl-mixer1.2
 ```
-
+To be able to do a test display of image on the GamePi20
+```
+sudo apt-get install fbi
+```
 
 To install the necessary game module,
 
