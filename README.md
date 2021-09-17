@@ -10,6 +10,10 @@ Changes compared to original version,
 * Max number of bullets on screen at once reduced.
 * Explosion animations reduced in complexity.
 
+https://downloads.raspberrypi.org/raspbian/images/raspbian-2020-02-14/
+
+
+
 #### Installation
 ```
 sudo apt-get install libsdl-ttf2.0-0
