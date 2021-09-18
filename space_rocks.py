@@ -706,7 +706,7 @@ class Config:
         # Set the height and width of the viewport.
         self.screen_size = [320, 240]
         self.screen_centre = [int(self.screen_size[0] / 2), int(self.screen_size[1] / 2)]
-        self.screen = pygame.display.set_mode(size=self.screen_size, flags=pygame.FULLSCREEN, display=1)
+        self.screen = pygame.display.set_mode(size=self.screen_size, flags=pygame.FULLSCREEN)
 
         pygame.mouse.set_visible(False)             # Turn off the mouse pointer.
 
