@@ -43,6 +43,13 @@ If all goes well, you see an image of some cows.
 
 ![GamePi20 screen showing picture of cows.](./gamepi20/cows.jpg)
 
+### Mirror 
+
+https://medium.com/@avik.das/writing-gui-applications-on-the-raspberry-pi-without-a-desktop-environment-8f8f840d9867
+
+https://github.com/AndrewFromMelbourne/raspi2fb
+
+
 ### Installing the game
 To create and activate virtual environment,
 ```
