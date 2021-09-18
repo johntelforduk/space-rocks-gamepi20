@@ -2,6 +2,7 @@
 
 import cartesian_coordinates as cc      # Functions for rotating, scaling, etc.
 import pygame                           # 2d games engine.
+import os
 import random
 import time
 import datetime                         # Needed for logging.
@@ -692,6 +693,8 @@ class Config:
         self.demo_mode = True
         self.quit = False                   # Will become true when the use chooses to quit the game.
 
+        os.putenv('SDL_FBDEV', '/dev/fb1')
+
         pygame.init()                       # Initialize the game engine.
 
         # Define the colors we will use in RGB format.
@@ -703,7 +706,7 @@ class Config:
         # Set the height and width of the viewport.
         self.screen_size = [320, 240]
         self.screen_centre = [int(self.screen_size[0] / 2), int(self.screen_size[1] / 2)]
-        self.screen = pygame.display.set_mode(self.screen_size, pygame.FULLSCREEN)
+        self.screen = pygame.display.set_mode(size=self.screen_size, flags=pygame.FULLSCREEN, display=1)
 
         pygame.mouse.set_visible(False)             # Turn off the mouse pointer.
 
@@ -713,7 +716,7 @@ class Config:
         pygame.font.init()
         self.myfont = pygame.font.SysFont('Courier New', 20)
 
-        pygame.display.set_caption('Space Rocks')   # The game window title.
+#        pygame.display.set_caption('Space Rocks')   # The game window title.
 
         # Start the Pygame sound system.
         pygame.mixer.init()
