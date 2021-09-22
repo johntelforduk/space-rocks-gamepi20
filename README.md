@@ -1,7 +1,11 @@
-# Space Rocks GamePi20
-A port of Space Rocks for GamePi20.
+# Space Rocks on GamePi20
+![Status.](https://img.shields.io/badge/status-in%20development-orange)
 
-Changes compared to original version,
+A port of [Space Rocks](https://github.com/johntelforduk/space-rocks-gamepi20) game for the [GamePi20](https://smile.amazon.co.uk/s?k=gamepi20) handheld console.
+
+Generally, the game has had to be made less processor intensive in order to make it run at an acceptable frame rate on [Pi Zero](https://www.raspberrypi.org/products/raspberry-pi-zero/) hardware.
+
+Changes compared to original version of Space Rocks,
 * Screen resolution reduced to 320x240 pixels.
 * Number & size of "rocks" reduced for smaller screen.
 * Font size for "Score", etc. reduced for smaller screen.
@@ -22,33 +26,25 @@ Therefore, I began by loading an older version of the OS onto my SD card,
 * [Raspberry Pi OS with kernel version 4.19.118+](https://downloads.raspberrypi.org/raspbian/images/raspbian-2020-02-14/)
 
 I then followed [this advice](https://www.raspberrypi.org/forums/viewtopic.php?t=281519) and ran a [script](https://github.com/johntelforduk/space-rocks-gamepi20/blob/main/gamepi20/prevent_updates.sh) to prevent the kernel being updated, removing possibility of loading the **fbtft** modules. 
+```commandline
+sudo sh ~/space-rocks-gamepi20/gamepi20/prevent_updates.sh
+```
 
 Because an older version of the OS is in use, it is also necessary to update the **apt** loader before anything else can be installed.
 
 ```
 sudo apt update
 ```
-After all of that, I then followed the [Retropie instructions](https://www.waveshare.com/wiki/GamePi20) to install the GamePi20.
 
-### Testing the PiGame20 display
-```
-sudo apt-get install fbi
-```
-Then,
-```
-sudo fbi -noverbose -T 1 -a -d /dev/fb1 ~/space-rocks-gamepi20/gamepi20/testovaci-obrazek.jpg
+I then followed the [Retropie instructions](https://www.waveshare.com/wiki/GamePi20) to install the GamePi20. I followed *Method 2: Install driver on Retropie*.
 
-```
-If all goes well, you see an image of some cows.
+#### Variations from instructions
 
-![GamePi20 screen showing picture of cows.](./gamepi20/cows.jpg)
+The lines that I added to `/boot/config.txt` were a little different - see `gamepi20/add_to_config.txt`
 
-### Mirror 
+TODO: Add extra lines needed to `add_to_config.txt`
 
-https://medium.com/@avik.das/writing-gui-applications-on-the-raspberry-pi-without-a-desktop-environment-8f8f840d9867
-
-https://github.com/AndrewFromMelbourne/raspi2fb
-
+TODO: Describe how to get joypad working.
 
 ### Installing the game
 To create and activate virtual environment,
@@ -56,7 +52,7 @@ To create and activate virtual environment,
 python3 -m venv ~/venv/space
 source ~/venv/space/bin/activate
 ```
-
+These libraries need to be installed in order for the game to work,
 ```
 sudo apt-get install libsdl-ttf2.0-0
 sudo apt-get install libsdl-mixer1.2
